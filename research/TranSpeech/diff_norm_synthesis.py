@@ -10,9 +10,10 @@ import soundfile as sf
 import torch
 from dataclasses import dataclass
 from tqdm import tqdm
+import numpy as np
+np.float = np.float32
 import fairseq
 from fairseq import utils
-import numpy as np
 from fairseq.data.data_utils import lengths_to_mask
 
 logging.basicConfig()
@@ -69,7 +70,7 @@ class AllDataItem:
 
 def prepare_data(args, split):
     data = []
-    batch_size = 100
+    batch_size = 400
 
     # ------------ load the mapping for reduce and original unit directory ------------#
     reduce_tsv_dir = f"{args.reduce_tsv_dir}/{split}.tsv"
@@ -190,18 +191,21 @@ def main(args):
     model.eval()
 
 
-    for split in ["test", "dev", "train"]:
+    # for split in ["test", "dev", "train"]:
+    for split in ['dev', 'train']:
     # for split in ["test"]:
         data = prepare_data(args, split)
         out_file = f"{args.output_dir}/{split}.tsv"
         write_handle = open(out_file, "w")
         write_handle.write("id\tsrc_audio\tsrc_n_frames\ttgt_audio\ttgt_n_frames\n")
 
+        # import pdb; pdb.set_trace()
         for i, batch_data in tqdm(enumerate(data), total=len(data)):
             audio_ids, src_audios, src_n_frames, tgt_feat, ref_units, tgt_lengths = prepare_batch_data(batch_data)
             tgt_mask = lengths_to_mask(tgt_lengths)
             # prepare the initial input
-            pred_units, _, _ = model.encoder.ddim_sample(
+            # pred_units, _, _ = model.encoder.ddim_sample(
+            pred_units, *_ = model.encoder.ddim_sample(
                 tgt_feat,
                 input_mask=tgt_mask,
                 cond_scale=1.0, # no cond is used

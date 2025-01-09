@@ -1,6 +1,12 @@
+cvss_dir=/mnt/lynx1/datasets/CVSS-C
+project_root=.
+exp_dir=$project_root/exps/exp0
+YOUR_CONFIG=$project_root/scripts/dummy_config.yaml
+
 # trianing en -> other direction with reduced unit
-lang="fr"
-data_dir=$cvss_dir/$lang-en/en2${lang}/orig_unit
+lang="es"
+# data_dir=$cvss_dir/$lang-en/en2${lang}/orig_unit
+data_dir=$cvss_dir/$lang-en/$lang
 
 lr=1e-4
 warmup_steps=10000
@@ -11,6 +17,7 @@ latent_dim=$1
 multitask=True
 output_dir=$exp_dir/ckpt/diff-norm-vae-${latent_dim}-multitask/en2${lang}/lr${lr}_warmup${warmup_steps}_maxup${max_update}_upfreq${update_freq}
 mkdir -p $output_dir
+latent_dim=128
 
 # this version use mhubert's feature instead of vae as target repr
 python $project_root/fairseq_cli/train.py \

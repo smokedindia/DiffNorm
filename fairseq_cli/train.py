@@ -27,6 +27,8 @@ import numpy as np
 import torch
 from omegaconf import DictConfig, OmegaConf
 
+import numpy as np
+np.float = np.float32
 from fairseq import checkpoint_utils, options, quantization_utils, tasks, utils
 from fairseq.data import data_utils, iterators
 from fairseq.data.plasma_utils import PlasmaStore

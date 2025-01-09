@@ -26,10 +26,13 @@ class SpeechToSpeechFastTranslateDatasetCreator(SpeechToSpeechDatasetCreator):
         #     (audio_root / s[cls.KEY_SRC_AUDIO]).as_posix() for s in samples
         # ]
         src_audio_paths = []
+        lang = samples[0][cls.KEY_ID].split('_')[-2]
         for s in samples:
-            s_path = s[cls.KEY_SRC_AUDIO].replace("/data/pkoehn1/wtan12", "/weka/scratch/jzhan237/diff_s2s")
+            # s_path = s[cls.KEY_SRC_AUDIO].replace("/data/pkoehn1/wtan12", "/weka/scratch/jzhan237/diff_s2s")
+            # src_audio_paths.append((audio_root / s_path).as_posix())
+            s_path = f'/mnt/lynx1/datasets/CVSS-C/{lang}-en/en/{split_name}/' + s[cls.KEY_ID] + '.mp3.wav'
+            src_audio_paths.append(s_path)
 
-            src_audio_paths.append((audio_root / s_path).as_posix())
 
         tgt_audio_paths = [
             s[cls.KEY_TGT_AUDIO]

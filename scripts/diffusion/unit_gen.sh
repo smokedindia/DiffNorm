@@ -1,11 +1,14 @@
 # use to synthesize reduced es/fr speech-units based on diffusion model
-lang="fr"
-reduce_tsv=$cvss_dir/$lang-en/en2${lang}/reduce_unit
-orig_tsv=$cvss_dir/$lang-en/en2${lang}/orig_unit
+lang="es"
+cvss_dir=/mnt/lynx1/datasets/CVSS-C
+reduce_tsv=$cvss_dir/$lang-en/${lang}/reduce_unit
+orig_tsv=$cvss_dir/$lang-en/${lang}/orig_unit
 feature_dir=$cvss_dir/$lang-en/${lang}/feat/
+project_root=.
+exp_dir=$project_root/exps/exp0
 
 latent_dim=128
-diff_ckpt_dir=$exp_dir/ckpt/diff-norm-vae-${latent_dim}-multitask/en2${lang}/lr1e-4_warmup10000_maxup2000000_upfreq1
+diff_ckpt_dir=$exp_dir/ckpt/diff-norm-vae--multitask/en2${lang}/lr1e-4_warmup10000_maxup2000000_upfreq1
 diff_ckpt=$diff_ckpt_dir/checkpoint_best.pt
 echo "Start Generating Units based on trained Diffusion Model at $diff_ckpt "
 start_step=$1 # start from 50th diffusion step

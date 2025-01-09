@@ -5,6 +5,7 @@
 import librosa
 import torch
 import fairseq
+from fairseq import checkpoint_utils
 import soundfile as sf
 import torch.nn.functional as F
 
@@ -20,7 +21,7 @@ class HubertFeatureReader:
             model,
             cfg,
             task,
-        ) = fairseq.checkpoint_utils.load_model_ensemble_and_task(
+        ) = checkpoint_utils.load_model_ensemble_and_task(
             [checkpoint_path]
         )
         self.model = model[0].eval().cuda()

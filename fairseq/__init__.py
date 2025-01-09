@@ -4,6 +4,8 @@
 # LICENSE file in the root directory of this source tree.
 """isort:skip_file"""
 
+import numpy as np
+np.float = np.float64
 import os
 import sys
 

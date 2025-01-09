@@ -325,7 +325,7 @@ class ReprToReprUnitDatasetCreator(object):
 
         feat_manifest_file = f"{src_feat_dir}/{split}.manifest.tsv"
         tgt_manifest_file = f"{tgt_feat_dir}/{split}.manifest.tsv"
-        translation_manifest_file = f"{raw_audio_root}/{split}.tsv"
+        translation_manifest_file = f"{raw_audio_root}/{split}.quant.tsv"
         samples = []
 
         src_id2feat = prepare_id2feat_dict(feat_manifest_file)
@@ -340,7 +340,9 @@ class ReprToReprUnitDatasetCreator(object):
                 if len(line.strip()) == 0:
                     continue
 
-                src_id, src_audio_path, src_n_frames, tgt_audio_token, tgt_n_frames = line.rstrip().split("\t")
+                # src_id, src_audio_path, src_n_frames, tgt_audio_token, tgt_n_frames = line.rstrip().split("\t")
+                src_id, tgt_audio_token = line.rstrip().split("|")
+                src_id = src_id.split(".")[0]
                 if (src_id not in src_id2feat) or (src_id not in tgt_id2feat):
                     print(f"src_id: {src_id} not found in feat manifest")
                     continue

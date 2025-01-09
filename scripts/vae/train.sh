@@ -1,13 +1,20 @@
+cvss_dir=/mnt/lynx1/datasets/CVSS-C
+project_root=.
+exp_dir=$project_root/exps/exp0
+YOUR_CONFIG=$project_root/scripts/dummy_config.yaml
+
+
 # trianing en -> other direction with reduced unit
-lang="fr"
-data_dir=$cvss_dir/$lang-en/en2${lang}/orig_unit
+lang="es"
+data_dir=$cvss_dir/$lang-en/es
+# data_dir=$cvss_dir/$lang
 
 lr=5e-4
 warmup_steps=10000
 max_update=200000
 max_tokens=15000
 update_freq=1
-latent_dim=$1
+latent_dim=128
 
 output_dir=$exp_dir/ckpt/speech_vae_decoder_${latent_dim}/en2${lang}/lr${lr}_warmup${warmup_steps}_maxup${max_update}_upfreq${update_freq}
 mkdir -p $output_dir
@@ -33,6 +40,7 @@ python $project_root/fairseq_cli/train.py \
   --optimizer adam --adam-betas '(0.9,0.98)' --clip-norm 2.0 \
   --max-update $max_update --max-tokens $max_tokens --max-target-positions 2048 --update-freq $update_freq \
   --seed 42 --num-workers 8 --log-interval 50 \
+  # --fp16 \
 #   --wandb-project speech-encdec \
 
 

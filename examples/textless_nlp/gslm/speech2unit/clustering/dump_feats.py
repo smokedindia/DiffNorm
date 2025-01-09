@@ -5,6 +5,8 @@
 
 import argparse
 import logging
+import numpy as np
+np.float = np.float64
 
 from examples.textless_nlp.gslm.speech2unit.pretrained.utils import (
     get_and_dump_features,

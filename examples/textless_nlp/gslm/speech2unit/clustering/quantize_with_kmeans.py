@@ -8,6 +8,7 @@ import logging
 import os
 
 import numpy as np
+np.float = np.float64
 import tqdm
 import joblib
 from examples.textless_nlp.gslm.speech2unit.clustering.utils import (

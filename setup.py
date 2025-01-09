@@ -212,7 +212,7 @@ def do_setup(package_data):
             "cffi",
             "cython",
             'dataclasses; python_version<"3.7"',
-            "hydra-core>=1.0.7,<1.1",
+            "hydra-core==1.0.6",
             "omegaconf<2.1",
             'numpy<1.20.0; python_version<"3.7"',
             'numpy; python_version>="3.7"',
@@ -221,6 +221,8 @@ def do_setup(package_data):
             "torch",
             "tqdm",
             "bitarray",
+            "librosa",
+            "soundfile"
         ],
         dependency_links=dependency_links,
         packages=find_packages(

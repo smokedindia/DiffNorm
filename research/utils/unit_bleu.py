@@ -1,3 +1,5 @@
+import numpy as np
+np.float = np.float64
 import argparse
 import sacrebleu
 
@@ -33,6 +35,7 @@ def main(args):
     # link transcription to the id
     id2trans = {}
     not_found_id =0
+    from fairseq.pdb import set_trace; set_trace()
     with open(args.manifest, "r") as f:
         for i, line in enumerate(f):
             if i == 0:

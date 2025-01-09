@@ -1,3 +1,8 @@
+cvss_dir=/mnt/lynx1/datasets/CVSS-C
+mhubert_ckpt=/mnt/bear3/users/jhkim/diffnorm/mhubert_base_vp_en_es_fr_it3.pt
+mhubert_quantizer_ckpt=/mnt/bear3/users/jhkim/diffnorm/mhubert_base_vp_en_es_fr_it3_L11_km1000.bin
+project_root=.
+exp_dir=$project_root/exps2
 
 N_CLUSTERS=1000
 TYPE=hubert
@@ -8,7 +13,7 @@ KM_MODEL_PATH=$mhubert_quantizer_ckpt
 # quantize (inference) with learned clustering on the translated english audio
 # this is to quantize the English audio
 for split in "test" "train" "dev"; do
-    for lang in "fr" "es"; do
+    for lang in "fr"; do
     data_dir=$cvss_dir/$lang-en/en/$split
     manifest_file=$exp_dir/cvss/$lang-en/$split.en.tsv
 

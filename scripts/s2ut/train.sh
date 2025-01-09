@@ -1,5 +1,10 @@
+project_root=.
+exp_dir=$project_root/exps/exp0
+YOUR_SPEECH_UNITS_DIR=/mnt/lynx1/datasets/CVSS-C/es-en/en2es/diff_unit_vae_50
+
+
 # trianing en -> other direction with reduced unit
-lang="fr"
+lang="es"
 start_time=$1
 data_dir=$YOUR_SPEECH_UNITS_DIR # this data_dir should contain the speech units for the target language
 # e.g. $cvss_dir/$lang-en/en2${lang}/diff_unit_vae_${start_time} for normalized speech units
@@ -29,4 +34,5 @@ python $project_root/fairseq_cli/train.py $data_dir \
   --seed 42 --num-workers 8 \
   --validate-interval 5 --save-interval 5 \
   --attn-type espnet --pos-enc-type rel_pos \
+  --batch-size 32
 #   --wandb-project nat-cg-es-ablation \
